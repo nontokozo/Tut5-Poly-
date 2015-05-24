@@ -1,137 +1,89 @@
 #include <iostream>
-#include <string>
-#include <vector>
+#include<string>
 using namespace std;
 
-// declare abstract base class Shape
-
-class Shape
-{
+class Shape{
 public:
-	Shape(int a = 0, int b = 0)
-
-	{
-		width = a;
-		length = b;
-	}
-	virtual void name() = 0;
-	virtual void area() = 0;
-	virtual void perimeter() = 0;
-	virtual void draw() = 0;
-	~Shape();
-
+	Shape(){
+		length = 3.5;
+		height = 5.5;
+		radius = 4.5;
+	};
+	virtual string name() = 0;
+	virtual double perimeter() = 0;
+	virtual double Area() = 0;
+	virtual void Draw() = 0;
 protected:
-	double width;
 	double length;
+	double height;
+	double radius;
 
 };
 
-// derive class
-class Circle : public Shape {
-
-public: Circle(int a = 0, int b = 0) : Shape(a, b){}
-		void virtual name(void)
-		{
-			cout << "Circle" << endl;
-		};
-
-		virtual void area() //area of a circle
-		{
-			cout << "Cirle class area :" << (3.14 * (length / 2)) << endl;
-
-		}
-		virtual void perimeter()  //perimeter of a circle
-		{
-			cout << "Perimeter of a circle:" << (2 * 3.14*(length / 2)) << endl;
-
-		}
-		virtual void draw()
-		{
-			name();
-			area();
-			perimeter();
-		}
+class Circle :public Shape{
+public:
+	string name(){
+		return("Circle");
+	};
+	double perimeter(){
+		return(2 * 3.142*length);
+	};
+	double Area(){
+		return(3.142*radius*radius);
+	};
+	void Draw(){
+		cout << name() << " " << perimeter() << " " << Area() << " " << endl;
+	};
 };
 
-class Triangle : public Shape{
-
-public: Triangle(int a = 0, int b = 0) : Shape(a, b){}
-		void virtual name(void)
-		{
-			cout << "Triangle" << endl;
-		};
-
-		virtual void area() //area of a triangle
-		{
-			cout << "Triangle class area :" << (width* (length / 2)) << endl;
-
-		}
-
-		virtual void perimeter()  //perimeter of a Triangle
-		{
-			cout << "Perimeter of a triangle:" << ((2 * width) + length) << endl;
-
-		}
-
-		virtual void draw()
-		{
-			name();
-			area();
-			perimeter();
-		}
-
+class Rectangle :public Shape{
+public:
+	string name(){
+		return("Rectangle");
+	};
+	double perimeter(){
+		return(2 * (length*height));
+	};
+	double Area(){
+		return(length*height);
+	};
+	void Draw(){
+		cout << name() << " " << perimeter() << " " << Area() << " " << endl;
+	};
 };
 
-class Rectangle : Shape{
-public: Rectangle(int a = 0, int b = 0) : Shape(a, b){}
-		void virtual name(void)
-		{
-			cout << "Rectangle" << endl;
-		};
-
-		virtual void area() //area of a rectangle
-		{
-			cout << "Rectangle class area :" << (width* length) << endl;
-
-		}
-
-		virtual void perimeter()  //perimeter of a Triangle
-		{
-			cout << "Perimeter of a triangle:" << (2 * (width + length)) << endl;
-
-		}
-
-		virtual void draw()
-		{
-			name();
-			area();
-			perimeter();
-		}
-
-
-
+class Triangle :public Shape{
+public:
+	string name(){
+		return("Triangle");
+	};
+	double perimeter(){
+		return(3 * length);
+	};
+	double Area(){
+		return(0.5*length*height);
+	};
+	void Draw(){
+		cout << name() << " " << perimeter() << " " << Area() << " " << endl;
+	};
 };
 
-//****************MAIN FUNCTION******************
-vector <Shape *> shape(3);
+// main function
+int main(){
+	Shape *shp[3];
+	Rectangle rec;
+	Triangle tri;
+	Circle clc;
+	shp[0] = &clc;
+	shp[1] = &rec;
+	shp[2] = &tri;
 
-int main()
-{
-	// initializing the array
-	shape[0] = new Rectangle(4, 5);
-	shape[1] = new Triangle(4, 5);
-	shape[2] = new Circle(4, 5);
+	for (int i = 0; i < 3; i++){
 
+		shp[i]->Draw();
 
-	for (int i = 0; i < 3; i++)
-	{
-
-		shape[i]->draw();
-	}// end forloop
-
-
+	}
 	system("pause");
-}// end main function
 
 
-
+}
